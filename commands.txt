@@ -1,0 +1,23 @@
+# first run the command to create the postgresql container
+sudo docker run -d \
+  --name blockchain-db \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=password \
+  -e POSTGRES_DB=blockchain_db \
+  -v pgdata:/var/lib/postgresql/data \
+  -p 5432:5432 \
+  postgres:14
+# build the blockchain-app
+sudo docker build -t blockchain-app .
+
+#create the blockchain container
+sudo docker run -d \
+  --name blockchain-app \
+  --link blockchain-db:db \
+  -p 5000:5000 \
+  -e DATABASE_URL=postgresql://postgres:password@db:5432/blockchain_db \
+  -v $(pwd)/uploads:/app/uploads \
+  blockchain-app
+
+#delete all running services to start again
+sudo docker rm -f $(sudo docker ps -aq)
