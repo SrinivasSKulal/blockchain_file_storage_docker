@@ -4,7 +4,7 @@
 
 Remove the -d(detached) if you wan to see what happens for each process
 Start the PostgreSQL container
-'''bash
+```bash
 sudo docker run -d \
   --name blockchain-db \
   -e POSTGRES_USER=postgres \
@@ -13,15 +13,15 @@ sudo docker run -d \
   -v pgdata:/var/lib/postgresql/data \
   -p 5432:5432 \
   postgres:14
-'''
+```
 
 Build the blockchain from the code
-'''bash
+```bash
 sudo docker build -t blockchain-app .
-'''
+```
 Start running the container
 
-'''bash
+```bash
 sudo docker run -d \
   --name blockchain-app \
   --link blockchain-db:db \
@@ -29,9 +29,9 @@ sudo docker run -d \
   -e DATABASE_URL=postgresql://postgres:password@db:5432/blockchain_db \
   -v $(pwd)/uploads:/app/uploads \
   blockchain-app
-'''
+```
 
 Delete all running services
-'''bash
+```bash
 sudo docker rm -f $(sudo docker ps -aq)
-'''
+```
