@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+    <title>Upload Your Content</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='upload.css') }}">
+</head>
+<body>
+    <h1>Upload a File</h1>
+    <p>Logged in as: {{username}}</p>
+    <form method="post" enctype="multipart/form-data">
+      <input type="file" name="file">
+      <input type="submit" value="Upload">
+    </form>
+    <br>
+    <a href="/myfiles" class="btn">📁 My Files</a>
+    <a href="/download" class="btn">⬇️ Download</a>
+    <a href="/logout" class="btn logout">🚪 Logout</a>
+
+</body>
+</html>
